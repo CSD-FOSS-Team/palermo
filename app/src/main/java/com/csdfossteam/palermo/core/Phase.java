@@ -3,8 +3,24 @@ package com.csdfossteam.palermo.core;
 /**
  * TODO doc
  *
- * @author MaanooAk
+ * @author Akritas Akritidis
  */
+public enum Phase {
 
-public class Phase {
+    Day,
+
+    Night;
+
+
+    public Phase next(Rules rules) {
+        if (this == Day) {
+            return Night;
+        } else {
+            return Day;
+        }
+    }
+
+    public boolean isFirst(Rules rules) {
+        return this == Day;
+    }
 }

@@ -6,5 +6,14 @@ package com.csdfossteam.palermo.core;
  * @author MaanooAk
  */
 
-public class RoleType {
+public enum RoleType {
+
+    Neutral,
+
+    Bad,
+
+    Investigative,
+
+    Special;
+
 }
