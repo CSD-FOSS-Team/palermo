@@ -3,9 +3,8 @@ package com.csdfossteam.palermo.core;
 /**
  * TODO doc
  *
- * @author MaanooAk
+ * @author Akritas Akritidis
  */
-
 public class Game {
 
     public final Players players;
@@ -14,12 +13,16 @@ public class Game {
     public int turn;
     public Phase phase;
 
+    public Vote vote;
+
     public Game() {
         players = new Players();
         rules = Rules.STANDARD;
 
         turn = 1;
         phase = Phase.Day;
+
+        vote = null;
     }
 
     public void nextPhase() {

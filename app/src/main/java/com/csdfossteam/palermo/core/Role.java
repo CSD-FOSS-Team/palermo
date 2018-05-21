@@ -9,6 +9,8 @@ import static com.csdfossteam.palermo.core.RoleType.*;
  */
 public enum Role {
 
+    // TODO add attributes to each rule that describe their behavior
+
     Citizen(Neutral),
 
     Criminal(Bad),
