@@ -9,11 +9,16 @@ import java.util.HashMap;
  */
 public class Vote {
 
-    // TODO find vote result
-
     private final HashMap<Player, Player> votes;
 
+    public final boolean allowSelf;
+
     public Vote(Players players) {
+        this(players, false);
+    }
+
+    public Vote(Players players, boolean allowSelf) {
+        this.allowSelf = allowSelf;
 
         votes = new HashMap<>();
         for (Player i : players) {
@@ -22,6 +27,8 @@ public class Vote {
     }
 
     public void set(Player voter, Player vote) {
+        if (!allowSelf && voter == vote) throw new RuntimeException();
+
         votes.put(voter, vote);
     }
 
@@ -36,4 +43,9 @@ public class Vote {
     public boolean ready() {
         return missing() == 0;
     }
+
+    public VoteResult result() {
+        return new VoteResult(votes);
+    }
+
 }

@@ -3,7 +3,7 @@ package com.csdfossteam.palermo.core;
 import java.util.ArrayList;
 
 /**
- * All the players players
+ * A collection of players
  *
  * @author Akritas Akritidis
  */

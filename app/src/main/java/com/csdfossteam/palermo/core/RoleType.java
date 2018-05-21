@@ -3,9 +3,8 @@ package com.csdfossteam.palermo.core;
 /**
  * TODO doc
  *
- * @author MaanooAk
+ * @author Akritas Akritidis
  */
-
 public enum RoleType {
 
     Neutral,
