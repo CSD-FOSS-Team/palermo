@@ -1,4 +1,4 @@
-package com.csdfossteam.palermo.face;
+package com.csdfossteam.palermo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
