@@ -30,6 +30,11 @@ public class Player {
     }
 
     public int voteMultiplier() {
+        // check for tags
+        if (role.has(Role.Tag.Doublevoter)) {
+            return 2;
+        }
+        // default
         return 1;
     }
 

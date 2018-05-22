@@ -1,6 +1,8 @@
 package com.csdfossteam.palermo.core;
 
-import static com.csdfossteam.palermo.core.RoleType.*;
+import java.util.EnumSet;
+
+import static com.csdfossteam.palermo.core.Role.Tag.*;
 
 /**
  * TODO doc
@@ -9,29 +11,58 @@ import static com.csdfossteam.palermo.core.RoleType.*;
  */
 public enum Role {
 
-    // TODO add attributes to each rule that describe their behavior
+    Citizen(Good),
 
-    Citizen(Neutral),
+    Mafioso(Bad),
 
-    Criminal(Bad),
+    Barman(Bad, Manipulator, Phase),
 
-    Detective(Investigative),
+    Detective(Good, Investigative),
 
-    Spy,
+    Witness(Good, Omniscient),
 
-    Doctor,
+    Doctor(Good, Protective, Phase),
 
-    Barman;
+    Dentist(Good, Handicapper, Phase),
+
+    Lawyer(Good, Election, Phase),
+
+    Mayor(Good, Election, Doublevoter),
+
+    Sheriff(Good, Election, Doublevoter, Voted),
+
+    ;
+
+    public enum Tag {
+
+        Good, Bad,
+
+        Investigative, Protective, Omniscient, Manipulator, Handicapper, Election,
+
+        Doublevoter,
+
+        Voted, Phase,
+
+        ;
+
+    }
 
     public static final Role DEFAULT = Citizen;
 
-    public final RoleType type;
+    private final EnumSet<Tag> tagSet;
 
-    Role() {
-        this(Special);
+    Role(Tag... tags) {
+        this.tagSet = EnumSet.noneOf(Tag.class);
+
+        for (Tag i : tags) {
+            tagSet.add(i);
+        }
     }
 
-    Role(RoleType type) {
-        this.type = type;
+    public boolean has(Tag... tags) {
+        for (Tag i : tags) {
+            if (!tagSet.contains(i)) return false;
+        }
+        return true;
     }
 }
