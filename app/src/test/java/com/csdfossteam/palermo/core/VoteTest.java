@@ -1,5 +1,7 @@
 package com.csdfossteam.palermo.core;
 
+import com.csdfossteam.palermo.core.vote.PlayerVote;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -31,7 +33,7 @@ public class VoteTest {
     @Test
     public void voteTie() throws Exception {
 
-        Vote v = new Vote(p, true);
+        PlayerVote v = new PlayerVote(p, true);
         v.set(p1, p2);
         v.set(p2, p1);
         v.set(p3, p3);
@@ -43,7 +45,7 @@ public class VoteTest {
     @Test
     public void voteCorrect() throws Exception {
 
-        Vote v = new Vote(p);
+        PlayerVote v = new PlayerVote(p);
         v.set(p1, p2);
         v.set(p2, p1);
         v.set(p3, p1);

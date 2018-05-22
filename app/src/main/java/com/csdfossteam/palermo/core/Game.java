@@ -1,5 +1,7 @@
 package com.csdfossteam.palermo.core;
 
+import com.csdfossteam.palermo.core.vote.PlayerVote;
+
 /**
  * TODO doc
  *
@@ -13,7 +15,7 @@ public class Game {
     public int turn;
     public Phase phase;
 
-    public Vote vote;
+    public PlayerVote vote;
 
     public Game() {
         players = new Players();
