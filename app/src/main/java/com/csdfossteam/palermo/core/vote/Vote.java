@@ -25,5 +25,7 @@ public abstract class Vote {
 
     public static abstract class Result {
 
+        public abstract boolean failed();
+
     }
 }
