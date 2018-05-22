@@ -1,6 +1,8 @@
 package com.csdfossteam.palermo.core;
 
+import com.csdfossteam.palermo.core.vote.MajorityVote;
 import com.csdfossteam.palermo.core.vote.PlayerVote;
+import com.csdfossteam.palermo.core.vote.UnanimousVote;
 
 import org.junit.Test;
 
@@ -31,7 +33,7 @@ public class VoteTest {
     }
 
     @Test
-    public void voteTie() throws Exception {
+    public void playerVoteTie() throws Exception {
 
         PlayerVote v = new PlayerVote(p, true);
         v.set(p1, p2);
@@ -43,10 +45,14 @@ public class VoteTest {
     }
 
     @Test
-    public void voteCorrect() throws Exception {
+    public void playerVoteCorrect() throws Exception {
 
         PlayerVote v = new PlayerVote(p);
         v.set(p1, p2);
+
+        assertEquals(2, v.missing());
+        assertFalse(v.ready());
+
         v.set(p2, p1);
         v.set(p3, p1);
         v.set(p3, p2);
@@ -56,6 +62,39 @@ public class VoteTest {
         assertEquals(p2, v.result().selected);
         assertEquals(2, v.result().selectedVotes);
         assertEquals(p1, v.result().votes.get(1).getKey());
+    }
+
+    @Test
+    public void unanimousVote() throws Exception {
+
+        PlayerVote v = new UnanimousVote(p, true);
+        v.set(p1, p2);
+        v.set(p2, p1);
+        v.set(p3, p1);
+        v.set(p3, p2);
+
+        assertFalse(v.ready());
+
+        v.set(p2, p2);
+
+        assertTrue(v.ready());
+        assertFalse(v.result().failed);
+        assertEquals(p2, v.result().selected);
+    }
+
+    @Test
+    public void majorityVote() throws Exception {
+
+        MajorityVote v = new MajorityVote(p, p1);
+        v.set(p1, true);
+        v.set(p2, true);
+        v.set(p3, false);
+
+        assertTrue(v.ready());
+        assertFalse(v.result().failed);
+        assertEquals(2, v.result().positive);
+        assertEquals(1, v.result().negative);
+        assertEquals(1, v.result().result);
     }
 
 }

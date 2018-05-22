@@ -15,15 +15,11 @@ import java.util.Map;
  *
  * @author Akritas Akritidis
  */
-public class PlayerVote extends Vote {
+public class PlayerVote extends Vote<Player> {
 
     protected final HashMap<Player, Player> votes;
 
     public final boolean allowSelf;
-
-    public PlayerVote(Players players) {
-        this(players, false);
-    }
 
     public PlayerVote(Players players, boolean allowSelf) {
         super(players);
@@ -79,7 +75,7 @@ public class PlayerVote extends Vote {
             Collections.sort(votes, COMPARATOR);
 
             // get the result
-            if (votes.get(0).getValue().equals(votes.get(1).getValue())) {
+            if (votes.size() > 1 && votes.get(0).getValue().equals(votes.get(1).getValue())) {
                 // tie in votes
                 failed = true;
                 selected = null;

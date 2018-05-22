@@ -10,7 +10,7 @@ import java.util.HashMap;
  *
  * @author Akritas Akritidis
  */
-public final class MajorityVote extends Vote {
+public final class MajorityVote extends Vote<Boolean> {
 
     private final HashMap<Player, Integer> votes;
 
@@ -23,7 +23,7 @@ public final class MajorityVote extends Vote {
         votes = new HashMap<>();
     }
 
-    public void set(Player voter, boolean vote) {
+    public void set(Player voter, Boolean vote) {
         int mult = voter.voteMultiplier();
 
         votes.put(voter, (vote ? 1 : -1) * mult);
@@ -62,7 +62,7 @@ public final class MajorityVote extends Vote {
                 if (i > 0) {
                     positive += i;
                 } else {
-                    negative += i;
+                    negative += -i;
                 }
             }
 
