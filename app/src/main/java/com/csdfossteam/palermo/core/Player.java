@@ -29,6 +29,10 @@ public class Player {
         return alive;
     }
 
+    public int voteMultiplier() {
+        return 1;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

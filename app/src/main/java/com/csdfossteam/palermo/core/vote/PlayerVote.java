@@ -15,9 +15,9 @@ import java.util.Map;
  *
  * @author Akritas Akritidis
  */
-public final class PlayerVote extends Vote {
+public class PlayerVote extends Vote {
 
-    private final HashMap<Player, Player> votes;
+    protected final HashMap<Player, Player> votes;
 
     public final boolean allowSelf;
 
@@ -113,6 +113,12 @@ public final class PlayerVote extends Vote {
             }
             return count;
         }
+
+        @Override
+        public boolean failed() {
+            return failed;
+        }
+
     }
 
 }
