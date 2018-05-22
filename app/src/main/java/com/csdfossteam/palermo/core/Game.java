@@ -2,6 +2,8 @@ package com.csdfossteam.palermo.core;
 
 import com.csdfossteam.palermo.core.vote.Vote;
 
+import java.util.ArrayList;
+
 /**
  * TODO doc
  *
@@ -34,5 +36,20 @@ public class Game {
         if (phase.isFirst(rules)) {
             turn += 1;
         }
+    }
+
+    public ArrayList<Role> nightRolesWithPhase() {
+
+        Players aliveWithPhase = players.alive(Role.Tag.Phase);
+
+        ArrayList<Role> roles = new ArrayList<>();
+        // iterating through values will get the roles in the correct order
+        for (Role role : Role.values()) {
+            if (aliveWithPhase.contains(role)) {
+                roles.add(role);
+            }
+        }
+
+        return roles;
     }
 }

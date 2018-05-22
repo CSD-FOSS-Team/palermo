@@ -11,8 +11,8 @@ public enum Phase {
 
     Night;
 
-
     public Phase next(Rules rules) {
+
         if (this == Day) {
             return Night;
         } else {

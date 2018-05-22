@@ -25,6 +25,10 @@ public class Player {
         alive = true;
     }
 
+    public void kill() {
+        alive = false;
+    }
+
     public boolean isAlive() {
         return alive;
     }
