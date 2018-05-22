@@ -47,7 +47,7 @@ public class VoteTest {
     @Test
     public void playerVoteCorrect() throws Exception {
 
-        PlayerVote v = new PlayerVote(p);
+        PlayerVote v = new PlayerVote(p, true);
         v.set(p1, p2);
 
         assertEquals(2, v.missing());
