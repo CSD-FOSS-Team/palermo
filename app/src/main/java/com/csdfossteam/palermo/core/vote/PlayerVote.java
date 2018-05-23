@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO doc
+ * A vote where the most votes will decide to a player.
  *
  * @author Akritas Akritidis
  */
@@ -52,9 +52,9 @@ public class PlayerVote extends Vote<Player> {
     }
 
     /**
-     * TODO doc
+     * The result of a player vote.
      */
-    public static final class Result extends Vote.Result {
+    public static final class Result extends Vote.Result<Player> {
 
         public final boolean failed;
 
@@ -115,6 +115,10 @@ public class PlayerVote extends Vote<Player> {
             return failed;
         }
 
+        @Override
+        public Player result() {
+            return selected;
+        }
     }
 
 }

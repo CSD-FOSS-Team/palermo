@@ -1,15 +1,16 @@
 package com.csdfossteam.palermo.core;
 
+import java.io.Serializable;
 import java.util.EnumSet;
 
 import static com.csdfossteam.palermo.core.Role.Tag.*;
 
 /**
- * TODO doc
+ * A player role
  *
  * @author Akritas Akritidis
  */
-public enum Role {
+public enum Role implements Serializable {
 
     Citizen(Good),
 
@@ -27,13 +28,16 @@ public enum Role {
 
     Lawyer(Good, Election, Phase),
 
-    Mayor(Good, Election, Doublevoter),
+    Mayor(Good, Election, Doublevoter), // TODO move to jobs/secondary roles
 
     Sheriff(Good, Election, Doublevoter, Voted),
 
     ;
 
-    public enum Tag {
+    /**
+     * A role tag.
+     */
+    public enum Tag implements Serializable {
 
         Good, Bad,
 
@@ -49,9 +53,11 @@ public enum Role {
 
     public static final Role DEFAULT = Citizen;
 
+    private final Tag[] tagArray;
     private final EnumSet<Tag> tagSet;
 
     Role(Tag... tags) {
+        this.tagArray = tags;
         this.tagSet = EnumSet.noneOf(Tag.class);
 
         for (Tag i : tags) {
@@ -59,10 +65,17 @@ public enum Role {
         }
     }
 
+    /**
+     * Check if the role has all the given tags.
+     */
     public boolean has(Tag... tags) {
         for (Tag i : tags) {
             if (!tagSet.contains(i)) return false;
         }
         return true;
+    }
+
+    public Tag[] tags() {
+        return tagArray;
     }
 }

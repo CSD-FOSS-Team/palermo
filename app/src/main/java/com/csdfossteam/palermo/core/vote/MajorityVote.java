@@ -2,11 +2,12 @@ package com.csdfossteam.palermo.core.vote;
 
 import com.csdfossteam.palermo.core.Player;
 import com.csdfossteam.palermo.core.Players;
+import com.csdfossteam.palermo.core.Rules;
 
 import java.util.HashMap;
 
 /**
- * TODO doc
+ * A vote where the majority must decide to yes or no.
  *
  * @author Akritas Akritidis
  */
@@ -16,15 +17,19 @@ public final class MajorityVote extends Vote<Boolean> {
 
     public final Player subject;
 
-    public MajorityVote(Players players, Player subject) {
+    private final boolean allowVoteMultipliers;
+
+    public MajorityVote(Players players, Player subject, Rules rules) {
         super(players);
         this.subject = subject;
 
         votes = new HashMap<>();
+
+        allowVoteMultipliers = rules.allowVoteMultipliers;
     }
 
     public void set(Player voter, Boolean vote) {
-        int mult = voter.voteMultiplier();
+        int mult = allowVoteMultipliers ? voter.voteMultiplier() : 1;
 
         votes.put(voter, (vote ? 1 : -1) * mult);
     }
@@ -40,9 +45,9 @@ public final class MajorityVote extends Vote<Boolean> {
     }
 
     /**
-     * TODO doc
+     * The result of a majority vote.
      */
-    public static final class Result extends Vote.Result {
+    public static final class Result extends Vote.Result<Boolean> {
 
         public final boolean failed;
 
@@ -75,6 +80,11 @@ public final class MajorityVote extends Vote<Boolean> {
         @Override
         public boolean failed() {
             return failed;
+        }
+
+        @Override
+        public Boolean result() {
+            return result > 0;
         }
     }
 

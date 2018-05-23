@@ -4,7 +4,7 @@ import com.csdfossteam.palermo.core.Player;
 import com.csdfossteam.palermo.core.Players;
 
 /**
- * TODO doc
+ * A player vote where all the voters must agree.
  *
  * @author Akritas Akritidis
  */

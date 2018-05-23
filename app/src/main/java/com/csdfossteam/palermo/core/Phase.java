@@ -1,11 +1,15 @@
 package com.csdfossteam.palermo.core;
 
+import java.io.Serializable;
+
 /**
- * TODO doc
+ * Phase of the a turn.
  *
  * @author Akritas Akritidis
  */
-public enum Phase {
+public enum Phase implements Serializable {
+
+    // TODO implement sub-phases
 
     Day,
 
@@ -20,6 +24,9 @@ public enum Phase {
         }
     }
 
+    /**
+     * Is the first phase of a turn.
+     */
     public boolean isFirst(Rules rules) {
         return this == Day;
     }

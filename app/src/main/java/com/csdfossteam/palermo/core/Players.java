@@ -3,14 +3,29 @@ package com.csdfossteam.palermo.core;
 import java.util.ArrayList;
 
 /**
- * A collection of players
+ * A collection of players.
  *
  * @author Akritas Akritidis
  */
 public class Players extends ArrayList<Player> {
 
-    // TODO move from inheritance to encasement
+    // TODO move from inheritance to encasement after the final
 
+    /**
+     * Returns the player based on the given name, or null if the player is not found.
+     */
+    public Player get(String name) {
+        for (Player i : this) {
+            if (i.name.equals(name)) return i;
+        }
+        return null; // player not found
+    }
+
+    /**
+     * Returns a new collection of the alive players based on the given filter options.
+     *
+     * @param tags if not empty, only players with all the given tags will be returned
+     */
     public Players alive(Role.Tag... tags) {
         return filter(true, tags);
     }
@@ -33,12 +48,22 @@ public class Players extends ArrayList<Player> {
         return p;
     }
 
-    public boolean contains(Role role) {
-
+    /**
+     * Count the players with the given role.
+     */
+    public int count(Role role) {
+        int count = 0;
         for (Player i : this) {
-            if (i.role == role) return true;
+            if (i.role == role) count++;
         }
-        return false;
+        return count;
+    }
+
+    /**
+     * Checks if there are players with the given role.
+     */
+    public boolean contains(Role role) {
+        return count(role) > 0;
     }
 
 }
