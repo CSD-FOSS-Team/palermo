@@ -15,8 +15,7 @@ public class Game {
     public final Rules rules;
     public final Players players;
 
-    public int turn;
-    public Phase phase;
+    public final Turn turn;
 
     /** The currently active vote */
     public Vote vote;
@@ -25,18 +24,13 @@ public class Game {
         this.rules = rules;
         this.players = players.create(rules);
 
-        turn = 1;
-        phase = Phase.Day;
+        turn = new Turn();
 
         vote = null;
     }
 
     public void nextPhase() {
-
-        phase = phase.next(rules);
-        if (phase.isFirst(rules)) {
-            turn += 1;
-        }
+        turn.nextPhase(rules);
     }
 
     public ArrayList<Role> nightRolesWithPhase() {

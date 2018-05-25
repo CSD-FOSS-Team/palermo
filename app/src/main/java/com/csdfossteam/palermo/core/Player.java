@@ -27,6 +27,10 @@ public class Player {
     public Role role;
     protected boolean alive;
 
+    public Player(Id id) {
+        this(id.name);
+    }
+
     public Player(String name) {
         this(name, Role.DEFAULT);
     }
@@ -60,13 +64,28 @@ public class Player {
         public final String name;
 
         private Id(Player player) {
-            this.name = player.name;
+            this(player.name);
+        }
+
+        public Id(String name) {
+            this.name = name;
         }
 
         public Player get(Players players) {
             return players.get(name);
         }
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            Id id = (Id) o;
+            return Objects.equals(name, id.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name);
+        }
     }
 
     public Id id() {
