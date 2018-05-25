@@ -36,9 +36,9 @@ public class VoteTest {
     public void playerVoteTie() throws Exception {
 
         PlayerVote v = new PlayerVote(p, true);
-        v.set(p1, p2);
-        v.set(p2, p1);
-        v.set(p3, p3);
+        v.set(p1, p2.id());
+        v.set(p2, p1.id());
+        v.set(p3, p3.id());
 
         assertTrue(v.ready());
         assertTrue(v.result().failed);
@@ -48,38 +48,38 @@ public class VoteTest {
     public void playerVoteCorrect() throws Exception {
 
         PlayerVote v = new PlayerVote(p, true);
-        v.set(p1, p2);
+        v.set(p1, p2.id());
 
         assertEquals(2, v.missing());
         assertFalse(v.ready());
 
-        v.set(p2, p1);
-        v.set(p3, p1);
-        v.set(p3, p2);
+        v.set(p2, p1.id());
+        v.set(p3, p1.id());
+        v.set(p3, p2.id());
 
         assertTrue(v.ready());
         assertFalse(v.result().failed);
-        assertEquals(p2, v.result().selected);
+        assertEquals(p2.id(), v.result().selected);
         assertEquals(2, v.result().selectedVotes);
-        assertEquals(p1, v.result().votes.get(1).getKey());
+        assertEquals(p1.id(), v.result().votes.get(1).getKey());
     }
 
     @Test
     public void unanimousVote() throws Exception {
 
         PlayerVote v = new UnanimousVote(p, true);
-        v.set(p1, p2);
-        v.set(p2, p1);
-        v.set(p3, p1);
-        v.set(p3, p2);
+        v.set(p1, p2.id());
+        v.set(p2, p1.id());
+        v.set(p3, p1.id());
+        v.set(p3, p2.id());
 
         assertFalse(v.ready());
 
-        v.set(p2, p2);
+        v.set(p2, p2.id());
 
         assertTrue(v.ready());
         assertFalse(v.result().failed);
-        assertEquals(p2, v.result().selected);
+        assertEquals(p2.id(), v.result().selected);
     }
 
     @Test

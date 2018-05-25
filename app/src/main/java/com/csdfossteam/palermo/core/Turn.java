@@ -1,11 +1,13 @@
 package com.csdfossteam.palermo.core;
 
+import java.io.Serializable;
+
 /**
  * The turn and phase of the game.
  *
  * @author Akritas Akritidis
  */
-public final class Turn {
+public final class Turn implements Serializable {
 
     public int turn;
     public Phase phase;
