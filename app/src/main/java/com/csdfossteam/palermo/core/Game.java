@@ -1,5 +1,6 @@
 package com.csdfossteam.palermo.core;
 
+import com.csdfossteam.palermo.core.setup.PlayersSetup;
 import com.csdfossteam.palermo.core.vote.Vote;
 
 import java.util.ArrayList;
@@ -11,8 +12,8 @@ import java.util.ArrayList;
  */
 public class Game {
 
-    public final Players players;
     public final Rules rules;
+    public final Players players;
 
     public int turn;
     public Phase phase;
@@ -20,9 +21,9 @@ public class Game {
     /** The currently active vote */
     public Vote vote;
 
-    public Game() {
-        players = new Players();
-        rules = Rules.STANDARD;
+    public Game(Rules rules, PlayersSetup players) {
+        this.rules = rules;
+        this.players = players.create(rules);
 
         turn = 1;
         phase = Phase.Day;

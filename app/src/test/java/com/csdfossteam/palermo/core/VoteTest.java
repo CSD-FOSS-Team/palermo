@@ -85,7 +85,7 @@ public class VoteTest {
     @Test
     public void majorityVote() throws Exception {
 
-        MajorityVote v = new MajorityVote(p, p1);
+        MajorityVote v = new MajorityVote(p, p1, Rules.STANDARD);
         v.set(p1, true);
         v.set(p2, true);
         v.set(p3, false);
