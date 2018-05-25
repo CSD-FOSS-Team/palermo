@@ -15,9 +15,9 @@ import java.util.Map;
  *
  * @author Akritas Akritidis
  */
-public class PlayerVote extends Vote<Player> {
+public class PlayerVote extends Vote<Player.Id> {
 
-    protected final HashMap<Player, Player> votes;
+    protected final HashMap<Player, Player.Id> votes;
 
     public final boolean allowSelf;
 
@@ -27,12 +27,12 @@ public class PlayerVote extends Vote<Player> {
 
         votes = new HashMap<>();
         for (Player i : players) {
-            votes.put(i, Player.NONE);
+            votes.put(i, Player.Id.NONE);
         }
     }
 
-    public void set(Player voter, Player vote) {
-        if (!allowSelf && voter == vote) throw new RuntimeException();
+    public void set(Player voter, Player.Id vote) {
+        if (!allowSelf && voter.id().equals(vote)) throw new RuntimeException();
 
         votes.put(voter, vote);
     }
@@ -40,8 +40,8 @@ public class PlayerVote extends Vote<Player> {
     @Override
     public int missing() {
         int count = 0;
-        for (Player i : votes.values()) {
-            if (i == Player.NONE) count += 1;
+        for (Player.Id i : votes.values()) {
+            if (i == Player.Id.NONE) count += 1;
         }
         return count;
     }
@@ -54,19 +54,19 @@ public class PlayerVote extends Vote<Player> {
     /**
      * The result of a player vote.
      */
-    public static final class Result extends Vote.Result<Player> {
+    public static final class Result extends Vote.Result<Player.Id> {
 
         public final boolean failed;
 
-        public final Player selected;
+        public final Player.Id selected;
         public final int selectedVotes;
 
-        public final List<Map.Entry<Player, Integer>> votes;
+        public final List<Map.Entry<Player.Id, Integer>> votes;
 
-        public Result(HashMap<Player, Player> votesMap) {
+        public Result(HashMap<Player, Player.Id> votesMap) {
 
             // get the count for each player
-            HashMap<Player, Integer> count = countVotes(votesMap);
+            HashMap<Player.Id, Integer> count = countVotes(votesMap);
 
             // move from a map to a list
             votes = new ArrayList<>(count.entrySet());
@@ -89,18 +89,18 @@ public class PlayerVote extends Vote<Player> {
             }
         }
 
-        private static final Comparator<Map.Entry<Player, Integer>> COMPARATOR = new Comparator<Map.Entry<Player, Integer>>() {
+        private static final Comparator<Map.Entry<Player.Id, Integer>> COMPARATOR = new Comparator<Map.Entry<Player.Id, Integer>>() {
             @Override
-            public int compare(Map.Entry<Player, Integer> o1, Map.Entry<Player, Integer> o2) {
+            public int compare(Map.Entry<Player.Id, Integer> o1, Map.Entry<Player.Id, Integer> o2) {
                 return Integer.compare(o2.getValue(), o1.getValue());
             }
         };
 
-        private HashMap<Player, Integer> countVotes(HashMap<Player, Player> votesMap) {
+        private HashMap<Player.Id, Integer> countVotes(HashMap<Player, Player.Id> votesMap) {
 
-            HashMap<Player, Integer> count = new HashMap<>();
-            for (Map.Entry<Player, Player> i : votesMap.entrySet()) {
-                Player p = i.getValue();
+            HashMap<Player.Id, Integer> count = new HashMap<>();
+            for (Map.Entry<Player, Player.Id> i : votesMap.entrySet()) {
+                Player.Id p = i.getValue();
                 if (count.containsKey(p)) {
                     count.put(p, count.get(p) + 1);
                 } else {
@@ -116,7 +116,7 @@ public class PlayerVote extends Vote<Player> {
         }
 
         @Override
-        public Player result() {
+        public Player.Id result() {
             return selected;
         }
     }

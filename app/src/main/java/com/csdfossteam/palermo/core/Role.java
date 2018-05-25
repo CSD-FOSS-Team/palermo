@@ -1,6 +1,7 @@
 package com.csdfossteam.palermo.core;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.EnumSet;
 
 import static com.csdfossteam.palermo.core.Role.Tag.*;
@@ -60,9 +61,7 @@ public enum Role implements Serializable {
         this.tagArray = tags;
         this.tagSet = EnumSet.noneOf(Tag.class);
 
-        for (Tag i : tags) {
-            tagSet.add(i);
-        }
+        Collections.addAll(tagSet, tags);
     }
 
     /**

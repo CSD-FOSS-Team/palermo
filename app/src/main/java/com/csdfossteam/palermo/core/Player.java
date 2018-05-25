@@ -15,7 +15,7 @@ import java.util.Objects;
 public class Player {
 
     /**
-     * A player object representing none of the player.
+     * A player object representing none of the players.
      */
     public static final Player NONE = new Player("");
 
@@ -59,7 +59,16 @@ public class Player {
         return 1;
     }
 
+    public Id id() {
+        return new Id(this);
+    }
+
     public static final class Id implements Serializable {
+
+        /**
+         * A player id object representing none of the players.
+         */
+        public static final Id NONE = Player.NONE.id();
 
         public final String name;
 
@@ -86,10 +95,6 @@ public class Player {
         public int hashCode() {
             return Objects.hash(name);
         }
-    }
-
-    public Id id() {
-        return new Id(this);
     }
 
     @Override
