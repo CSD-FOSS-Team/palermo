@@ -1,5 +1,6 @@
 package com.csdfossteam.palermo.core;
 
+import com.csdfossteam.palermo.core.event.Event;
 import com.csdfossteam.palermo.core.setup.PlayersSetup;
 import com.csdfossteam.palermo.core.vote.Vote;
 
@@ -27,6 +28,11 @@ public class Game {
         turn = new Turn();
 
         vote = null;
+    }
+
+    private void handle(Event event) {
+
+        event.apply(this);
     }
 
     public void nextPhase() {
