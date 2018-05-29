@@ -22,7 +22,7 @@ public final class Events {
 
         public final Player.Id player;
         public final Serializable vote;
-private Player p;
+
         public PlayerVote(Player.Id player, Serializable vote) {
             super(MES, player, vote);
             this.player = player;
