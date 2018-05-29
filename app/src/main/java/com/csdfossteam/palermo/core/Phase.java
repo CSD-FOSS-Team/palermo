@@ -30,4 +30,5 @@ public enum Phase implements Serializable {
     public boolean isFirst(Rules rules) {
         return this == Day;
     }
+
 }

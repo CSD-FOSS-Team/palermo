@@ -1,10 +1,12 @@
 package com.csdfossteam.palermo.core;
 
+import com.csdfossteam.palermo.core.setup.PlayersSetup;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * TODO doc
@@ -69,6 +71,27 @@ public class PlayersTest {
         p.filter(true).add(new Player("p8"));
 
         assertEquals(7, p.size());
+    }
+
+    @Test
+    public void setup() throws Exception {
+
+        PlayersSetup setup = new PlayersSetup(3);
+        setup.set(0, "p1");
+        setup.set(1, "p2");
+
+        assertFalse(setup.ready());
+
+        setup.set(2, "p3");
+
+        assertTrue(setup.ready());
+
+        Players players = setup.create(Rules.STANDARD);
+
+        assertEquals(3, players.size());
+        assertEquals("p2", players.get(1).name);
+        assertEquals(true, players.get(1).isAlive());
+
     }
 
 }

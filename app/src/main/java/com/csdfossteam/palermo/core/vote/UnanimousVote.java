@@ -16,9 +16,9 @@ public class UnanimousVote extends PlayerVote {
 
     public boolean unanimous() {
         // get the first player voted player
-        Player p = votes.values().iterator().next();
+        Player.Id p = votes.values().iterator().next();
         // check if all votes have the same player
-        for (Player i : votes.values()) {
+        for (Player.Id i : votes.values()) {
             if (!i.equals(p)) return false;
         }
         return true;

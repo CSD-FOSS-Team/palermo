@@ -1,5 +1,7 @@
 package com.csdfossteam.palermo.core;
 
+import com.csdfossteam.palermo.core.event.Event;
+import com.csdfossteam.palermo.core.setup.PlayersSetup;
 import com.csdfossteam.palermo.core.vote.Vote;
 
 import java.util.ArrayList;
@@ -11,31 +13,30 @@ import java.util.ArrayList;
  */
 public class Game {
 
-    public final Players players;
     public final Rules rules;
+    public final Players players;
 
-    public int turn;
-    public Phase phase;
+    public final Turn turn;
 
     /** The currently active vote */
     public Vote vote;
 
-    public Game() {
-        players = new Players();
-        rules = Rules.STANDARD;
+    public Game(Rules rules, PlayersSetup players) {
+        this.rules = rules;
+        this.players = players.create(rules);
 
-        turn = 1;
-        phase = Phase.Day;
+        turn = new Turn();
 
         vote = null;
     }
 
-    public void nextPhase() {
+    private void handle(Event event) {
 
-        phase = phase.next(rules);
-        if (phase.isFirst(rules)) {
-            turn += 1;
-        }
+        event.apply(this);
+    }
+
+    public void nextPhase() {
+        turn.nextPhase(rules);
     }
 
     public ArrayList<Role> nightRolesWithPhase() {

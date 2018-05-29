@@ -15,7 +15,7 @@ import java.util.Objects;
 public class Player {
 
     /**
-     * A player object representing none of the player.
+     * A player object representing none of the players.
      */
     public static final Player NONE = new Player("");
 
@@ -26,6 +26,10 @@ public class Player {
 
     public Role role;
     protected boolean alive;
+
+    public Player(Id id) {
+        this(id.name);
+    }
 
     public Player(String name) {
         this(name, Role.DEFAULT);
@@ -55,22 +59,47 @@ public class Player {
         return 1;
     }
 
+    public Id id() {
+        return new Id(this);
+    }
+
     public static final class Id implements Serializable {
+
+        /**
+         * A player id object representing none of the players.
+         */
+        public static final Id NONE = Player.NONE.id();
 
         public final String name;
 
         private Id(Player player) {
-            this.name = player.name;
+            this(player.name);
+        }
+
+        public Id(String name) {
+            this.name = name;
         }
 
         public Player get(Players players) {
             return players.get(name);
         }
 
-    }
+        @Override
+        public String toString() {
+            return name.equals("") ? "None" : name;
+        }
 
-    public Id id() {
-        return new Id(this);
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            Id id = (Id) o;
+            return Objects.equals(name, id.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name);
+        }
     }
 
     @Override

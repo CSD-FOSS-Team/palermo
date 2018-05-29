@@ -3,6 +3,8 @@ package com.csdfossteam.palermo.core.vote;
 import com.csdfossteam.palermo.core.Player;
 import com.csdfossteam.palermo.core.Players;
 
+import java.io.Serializable;
+
 /**
  * An abstraction of a vote and its result
  * <p>
@@ -10,7 +12,7 @@ import com.csdfossteam.palermo.core.Players;
  *
  * @author Akritas Akritidis
  */
-public abstract class Vote<T> {
+public abstract class Vote<T extends Serializable> {
 
     protected final Players players;
 

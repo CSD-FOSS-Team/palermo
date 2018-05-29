@@ -1,24 +1,41 @@
 package com.csdfossteam.palermo.core;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * A collection of players.
  *
  * @author Akritas Akritidis
  */
-public class Players extends ArrayList<Player> {
+public class Players implements Iterable<Player> {
 
-    // TODO move from inheritance to encasement after the final
+    private final ArrayList<Player> list;
+
+    public Players() {
+        list = new ArrayList<>();
+    }
+
+    public void add(Player player) {
+        list.add(player);
+    }
+
+    public int size() {
+        return list.size();
+    }
 
     /**
      * Returns the player based on the given name, or null if the player is not found.
      */
     public Player get(String name) {
-        for (Player i : this) {
+        for (Player i : list) {
             if (i.name.equals(name)) return i;
         }
         return null; // player not found
+    }
+
+    public Player get(int index) {
+        return list.get(index);
     }
 
     /**
@@ -39,7 +56,7 @@ public class Players extends ArrayList<Player> {
     public Players filter(boolean onlyAlive, Role.Tag... tags) {
         Players p = new Players();
 
-        for (Player i : this) {
+        for (Player i : list) {
             if (onlyAlive && !i.alive) continue;
             if (tags.length > 0 && !i.role.has(tags)) continue;
             p.add(i);
@@ -53,7 +70,7 @@ public class Players extends ArrayList<Player> {
      */
     public int count(Role role) {
         int count = 0;
-        for (Player i : this) {
+        for (Player i : list) {
             if (i.role == role) count++;
         }
         return count;
@@ -66,4 +83,8 @@ public class Players extends ArrayList<Player> {
         return count(role) > 0;
     }
 
+    @Override
+    public Iterator<Player> iterator() {
+        return list.iterator();
+    }
 }
